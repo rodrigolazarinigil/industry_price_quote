@@ -1,0 +1,12 @@
+version: '2'
+services:
+    postgres:
+        container_name: postgres
+        build: ""
+        image: postgres-dw
+        ports:
+          - 5432:5432
+        environment:
+          - POSTGRES_USER=industry_user
+          - POSTGRES_PASSWORD=password
+          - POSTGRES_DB=industry_price_quote
