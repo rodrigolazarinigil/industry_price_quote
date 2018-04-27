@@ -1,5 +1,5 @@
 SHELL := /bin/bash
 
-dev-up:
-	docker-compose -f db/docker-compose.yml -p dwdockerenv build postgres
-	docker-compose -f db/docker-compose.yml -p dwdockerenv up -d
+db-up:
+	docker-compose -f db/docker-compose.yml build postgres
+	docker-compose -f db/docker-compose.yml up -d
