@@ -1,5 +1,6 @@
 import pandas as pd
 
+from util.db_connection import PostgresClient
 from util.str_functions import boolstr_to_int
 
 
@@ -46,4 +47,33 @@ def clean_str_values(
 		if fillna_value is not None:
 			df[column].fillna(fillna_value)
 	
+	return df
+
+
+def merge_from_db(df, schema, table_name, column, left_on, right_on, drop_columns=None):
+	component_df = pd.read_sql(
+		sql="SELECT {columns} FROM {schema}.{table_name}".format(
+			columns=column + "," + right_on,
+			schema=schema,
+			table_name=table_name
+		),
+		con=PostgresClient.get_conn_engine()
+	)
+
+	old_size = len(df)
+
+	df = df.merge(
+		right=component_df,
+		how="left",
+		left_on=left_on,
+		right_on=right_on,
+		validate="many_to_one"
+	)
+
+	if old_size != len(df):
+		raise ValueError("Registros perdidos após o merge")
+
+	if drop_columns is not None:
+		df.drop(columns=drop_columns, inplace=True, axis=1)
+
 	return df

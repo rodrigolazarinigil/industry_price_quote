@@ -1,6 +1,5 @@
-CREATE TABLE component_dimension
+CREATE TABLE industry.component_dimension
 (
-	sk_component SERIAL,
 	id      VARCHAR(10),
 	type_id VARCHAR(10),
 	type 	VARCHAR(10),
@@ -16,4 +15,10 @@ CREATE TABLE component_dimension
 	unique_feature INT,
 	orientation INT,
 	weight NUMERIC(8,5)
+);
+
+CREATE TABLE industry.tube_assembly_dimension (
+    id VARCHAR(10),
+    quantity INT,
+    component_id VARCHAR(10)
 );
