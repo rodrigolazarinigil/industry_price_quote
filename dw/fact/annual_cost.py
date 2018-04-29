@@ -13,13 +13,14 @@ class AnnualCost:
 
 	@staticmethod
 	def set_cost_by_assembly(group):
-		group.sort_values(by="quantity")
-		group["previous_quantity"] = group["quantity"].shift(1).fillna(0)
-		group_filter = group[
-			(group["quantity"] >= group["ammont_to_buy"]) & (group["ammont_to_buy"] > group["previous_quantity"])
-		]
+		if group["bracket_pricing"].unique() == 1:
+			group.sort_values(by="quantity")
+			group["previous_quantity"] = group["quantity"].shift(1).fillna(0)
+			group = group[
+				(group["quantity"] >= group["ammont_to_buy"]) & (group["ammont_to_buy"] > group["previous_quantity"])
+			]
 
-		return group_filter
+		return group
 
 	def run(self):
 		df = pd.read_csv(filepath_or_buffer=os.path.join(ROOT_DIR, "data", self.source_file))
@@ -30,13 +31,10 @@ class AnnualCost:
 		df["ammont_to_buy"] = df[["annual_usage", "min_order_quantity"]].max(axis=1)
 		df["annual_cost"] = df["cost"] * df["ammont_to_buy"]
 
-		df_bracket_pricing = df[df["bracket_pricing"] == 1]
-
-		df_bracket_pricing = df_bracket_pricing.groupby(['tube_assembly_id']).apply(self.set_cost_by_assembly)
-		df.loc[df["bracket_pricing"] == 1] = df_bracket_pricing
+		df.groupby(['tube_assembly_id']).apply(self.set_cost_by_assembly)
 
 		df.to_sql(
-			schema="industry", name="price_quote", con=PostgresClient.get_conn_engine(),
+			schema="industry", name="annual_cost_fact", con=PostgresClient.get_conn_engine(),
 			if_exists="replace", index=False)
 
 
