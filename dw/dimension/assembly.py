@@ -2,8 +2,7 @@ import pandas as pd
 import os
 from definitions import ROOT_DIR
 from util.db_connection import PostgresClient
-from util.df_functions import transform_str_columns, transform_float_columns, merge_from_db
-import numpy as np
+from util.run_functions import run_to_debug
 
 
 class TubeAssembly:
@@ -26,10 +25,6 @@ class TubeAssembly:
 
 		df = df.dropna(subset=["component_id"])
 
-		# df = merge_from_db(
-		# 	df=df, schema="industry", table_name="component_dimension", column="sk_component",
-		# 	left_on="component_id", right_on="id", drop_columns=["id"])
-
 		df.rename(
 			columns={
 				"tube_assembly_id": "id"
@@ -42,9 +37,4 @@ class TubeAssembly:
 
 
 if __name__ == "__main__":
-	os.environ["USER"] = "industry_user"
-	os.environ["PWD"] = "password"
-	os.environ["HOST"] = "localhost"
-	os.environ["PORT"] = "5432"
-	os.environ["DB"] = "industry_price_quote"
-	TubeAssembly().run()
+	run_to_debug(TubeAssembly)

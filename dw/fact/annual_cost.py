@@ -3,7 +3,7 @@ import os
 from definitions import ROOT_DIR
 from util.db_connection import PostgresClient
 from util.df_functions import df_bool_to_int, transform_str_columns
-import numpy as np
+from util.run_functions import run_to_debug
 
 
 class AnnualCost:
@@ -18,7 +18,7 @@ class AnnualCost:
 			group["previous_quantity"] = group["quantity"].shift(1).fillna(0)
 			group = group[
 				(group["quantity"] >= group["ammont_to_buy"]) & (group["ammont_to_buy"] > group["previous_quantity"])
-			]
+				]
 
 		return group
 
@@ -39,9 +39,4 @@ class AnnualCost:
 
 
 if __name__ == "__main__":
-	os.environ["USER"] = "industry_user"
-	os.environ["PWD"] = "password"
-	os.environ["HOST"] = "localhost"
-	os.environ["PORT"] = "5432"
-	os.environ["DB"] = "industry_price_quote"
-	AnnualCost().run()
+	run_to_debug(AnnualCost)

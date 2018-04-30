@@ -3,6 +3,7 @@ import os
 from definitions import ROOT_DIR
 from util.db_connection import PostgresClient
 from util.df_functions import df_bool_to_int, transform_str_columns
+from util.run_functions import run_to_debug
 
 
 class PriceQuote:
@@ -21,9 +22,4 @@ class PriceQuote:
 
 
 if __name__ == "__main__":
-	os.environ["USER"] = "industry_user"
-	os.environ["PWD"] = "password"
-	os.environ["HOST"] = "localhost"
-	os.environ["PORT"] = "5432"
-	os.environ["DB"] = "industry_price_quote"
-	PriceQuote().run()
+	run_to_debug(PriceQuote)
