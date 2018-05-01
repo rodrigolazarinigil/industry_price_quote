@@ -19,11 +19,13 @@ CREATE TABLE industry.component_dimension
 );
 
 CREATE TABLE industry.tube_assembly_dimension (
-    id VARCHAR(10) NOT NULL,
+    id SERIAL NOT NULL,
+    tube_assembly_id VARCHAR(10) NOT NULL,
     quantity INT NOT NULL,
     component_id VARCHAR(10) NOT NULL,
+    has_component_details INT NOT NULL,
     CONSTRAINT pk_tube_assembly_dimension PRIMARY KEY (id),
-    CONSTRAINT fk_tube_assembly_dimension FOREIGN KEY (component_id) REFERENCES industry.component_dimension (id)
+    CONSTRAINT un_tube_assembly_dimension UNIQUE (tube_assembly_id, component_id)
 );
 
 CREATE TABLE industry.price_quote_fact (

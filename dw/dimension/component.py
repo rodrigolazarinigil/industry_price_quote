@@ -4,9 +4,14 @@ from definitions import ROOT_DIR
 from util.db_connection import PostgresClient
 from util.df_functions import df_bool_to_int, transform_str_columns, transform_float_columns
 from util.run_functions import run_to_debug
+import numpy as np
 
 
 class Component:
+	"""
+		Reads a csv file with component info and loads to a postgres.
+		Just some type convertions are applied to the original data.
+	"""
 
 	def __init__(self, source_file="comp_boss.csv"):
 		self.source_file = source_file
@@ -20,6 +25,7 @@ class Component:
 			}, inplace=True
 		)
 
+		df["connection_type_id"] = df["connection_type_id"].replace(to_replace="9999", value=np.nan)
 		df = transform_str_columns(df, upper=True, fillna_value="N/A")
 		df = transform_float_columns(df, fillna_value=0)
 		df = df_bool_to_int(df, ["groove", "unique_feature", "orientation"])

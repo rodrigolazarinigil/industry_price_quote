@@ -7,6 +7,11 @@ from util.run_functions import run_to_debug
 
 
 class AnnualCost:
+	"""
+		Sample of a different fact table.
+		Reads a csv file with the price quotes info and loads to a postgres, calculating the ammount to buy and
+		the cost based on annual usage.
+	"""
 
 	def __init__(self, source_file="price_quote.csv"):
 		self.source_file = source_file

@@ -1,0 +1,14 @@
+version: '2'
+services:
+    industry-etl:
+        container_name: industry-etl
+        build: ""
+        image: industry-etl
+        environment:
+          - USER=industry_user
+          - PWD=password
+          - HOST=localhost
+          - PORT=5432
+          - DB=industry_price_quote
+        command: python main.py
+        network_mode: host

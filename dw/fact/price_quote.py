@@ -7,6 +7,10 @@ from util.run_functions import run_to_debug
 
 
 class PriceQuote:
+	"""
+		Reads a csv file with the price quotes info and loads to a postgres.
+		Just some type convertions are applied to the original data.
+	"""
 
 	def __init__(self, source_file="price_quote.csv"):
 		self.source_file = source_file
