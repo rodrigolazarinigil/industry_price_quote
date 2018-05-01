@@ -20,7 +20,7 @@ pip install -r requirements.txt
 1) Inicie o processo python (não esqueça de checar se os arquivos csv estão na pasta correta) \
 _Importante: Execute os comandos a seguir dentro do diretório do projeto !_
 ```
-make dev-up
+make db-up
 make run
 ```
 
