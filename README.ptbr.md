@@ -33,6 +33,8 @@ make run
 
 ### Modelo do BD:
 
+![model](db/model.png)
+
 - component_dimension: 
 	- Contém todos os dados de comp_boss.csv. Todas as colunas boolean for convertidas para 1 ou 0;
 	- Todos os valores N/A foram padronizados;
