@@ -34,7 +34,7 @@ make run
 
 ### DB Model:
 
-[model](db/model.png)
+![model](db/model.png)
 
 - component_dimension: 
 	- Contain all the data from comp_boss.csv. All boolean colums converted to 1 or 0;
