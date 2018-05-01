@@ -21,7 +21,7 @@ pip install -r requirements.txt
 1) Start the python process (don't forget to check if the data folder has all csv files) \
 _Important: Run the following on the project directory!_
 ```
-make dev-up
+make db-up
 make run
 ```
 
